@@ -1,2 +1,2 @@
-# overlook_api
-Svendeprøve API i NodeJS, Express, MySQL og Sequelize
+# MyCustomAPI
+Type `nodemon .` in the terminal to start the project.
