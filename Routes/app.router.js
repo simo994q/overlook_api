@@ -7,10 +7,8 @@ import ReservationController from '../Controllers/reservation.controller.js'
 import ReviewController from '../Controllers/review.controller.js'
 import { Authorize } from '../Middleware/auth.js'
 
-// Class Instances
-const destcontrol = new DestinationController;
-
 // Destination Routes
+const destcontrol = new DestinationController;
 AppRouter.get('/destinations', (req, res) => { destcontrol.list(req, res) })
 AppRouter.get('/destinations/:destination([a-z]*)', (req, res) => { destcontrol.details(req, res) })
 
