@@ -1,0 +1,2 @@
+"id","firstname","lastname","email","password","org_id","refresh_token","is_active","created_at","updated_at"
+1,"John","Doe","info@overlook.dk","$2b$10$tt1jtoli2F/wrdiZBViDje1ikfaWi.PgXK7Pptb1sdWfAZwLnPNCK",1,"1234",1,"2023-08-20 19:20:57","2023-08-20 19:20:57"
