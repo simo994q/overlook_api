@@ -134,13 +134,15 @@ class UserController {
 
 	update_value = async (req, res) => {
 		// Destructure assignment af id. 
-		const { user_id } = req.body || 0
-		console.log(req.body);
+		const { user_id, field, value } = req.body || 0
 		// Tjekker felt data
 		if(user_id) {
-
 			try {
-				const model = await Users.update(req.body,{ 
+
+				const dataObj = {}
+				dataObj[field] = value
+
+				const model = await Users.update(dataObj,{ 
 					where: { id: user_id },
 					individualHooks: true
 				})
