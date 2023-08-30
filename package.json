@@ -1,5 +1,5 @@
 {
-  "name": "mycustomapi",
+  "name": "overlookapi",
   "version": "1.0.0",
   "description": "Eksemplar af API i NodeJS, Express og Sequelize",
   "main": "index.js",
