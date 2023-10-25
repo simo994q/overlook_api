@@ -1,10 +1,10 @@
 import sequelize from '../Config/sequelize.config.js'
 import { DataTypes, Model } from 'sequelize'
-import { Images } from './image.model.js'
+import { Image } from './image.model.js'
 
-class Countries extends Model{}
+class Country extends Model{}
 
-Countries.init({
+Country.init({
 	id: {
 		type: DataTypes.INTEGER,
 		autoIncrement: true,
@@ -27,7 +27,7 @@ Countries.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Images,
+			model: Image,
 			key: 'id'
 		}
 	}
@@ -37,4 +37,4 @@ Countries.init({
 	underscored: true,
 })
 
-export default Countries
+export default Country

@@ -1,11 +1,11 @@
 import sequelize from '../Config/sequelize.config.js'
 import { DataTypes, Model } from 'sequelize'
-import Users from './user.model.js'
-import Hotels from './hotel.model.js'
+import User from './System/user.model.js'
+import Hotel from './hotel.model.js'
 
-class UserReviews extends Model {}
+class UserReview extends Model {}
 
-UserReviews.init({
+UserReview.init({
 	id: {
 		type: DataTypes.INTEGER,
 		autoIncrement: true,
@@ -28,7 +28,7 @@ UserReviews.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Users,
+			model: User,
 			key: 'id'
 		}
 	},
@@ -36,7 +36,7 @@ UserReviews.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Hotels,
+			model: Hotel,
 			key: 'id'
 		}
 	},
@@ -50,4 +50,4 @@ UserReviews.init({
 	underscored: true,
 })
 
-export default UserReviews
+export default UserReview

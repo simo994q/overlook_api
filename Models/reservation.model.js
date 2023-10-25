@@ -1,12 +1,12 @@
 import sequelize from '../Config/sequelize.config.js'
 import { DataTypes, Model } from 'sequelize'
-import User from './user.model.js'
-import Hotels from './hotel.model.js'
-import Rooms from './room.model.js'
+import User from './System/user.model.js'
+import Hotel from './hotel.model.js'
+import Room from './room.model.js'
 
-class Reservations extends Model {}
+class Reservation extends Model {}
 
-Reservations.init({
+export default Reservation.init({
 	id: {
 		type: DataTypes.INTEGER,
 		autoIncrement: true,
@@ -25,7 +25,7 @@ Reservations.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Hotels,
+			model: Hotel,
 			key: 'id'
 		}
 	},
@@ -33,7 +33,7 @@ Reservations.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Rooms,
+			model: Room,
 			key: 'id'
 		}
 	},
@@ -75,8 +75,6 @@ Reservations.init({
 	}
 },{
 	sequelize,
-	modelName: 'user_reservation',
+	modelName: 'reservation',
 	underscored: true,
 })
-
-export default Reservations

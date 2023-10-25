@@ -1,9 +1,9 @@
 import sequelize from '../Config/sequelize.config.js'
 import { DataTypes, Model } from 'sequelize'
 
-class HotelFacilities extends Model{}
+class HotelFacility extends Model{}
 
-HotelFacilities.init({
+HotelFacility.init({
 	id: {
 		type: DataTypes.INTEGER,
 		autoIncrement: true,
@@ -20,4 +20,4 @@ HotelFacilities.init({
 	underscored: true,
 })
 
-export default HotelFacilities
+export default HotelFacility

@@ -1,7 +1,7 @@
 import sequelize from "../Config/sequelize.config.js";
 import { DataTypes, Model } from "sequelize";
-import Hotels from "./hotel.model.js";
-import HotelFacilities from "./hotel-facility.model.js";
+import Hotel from "./hotel.model.js";
+import HotelFacility from "./hotel-facility.model.js";
 
 class HotelFacilityRel extends Model{}
 
@@ -16,7 +16,7 @@ HotelFacilityRel.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Hotels,
+			model: Hotel,
 			key: 'id'
 		}	
 	},
@@ -24,7 +24,7 @@ HotelFacilityRel.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: HotelFacilities,
+			model: HotelFacility,
 			key: 'id'
 		}	
 

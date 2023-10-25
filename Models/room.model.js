@@ -1,9 +1,9 @@
 import sequelize from '../Config/sequelize.config.js'
 import { DataTypes, Model } from 'sequelize'
 
-class Rooms extends Model {}
+class Room extends Model {}
 
-Rooms.init({
+Room.init({
 	id: {
 		type: DataTypes.INTEGER,
 		autoIncrement: true,
@@ -44,4 +44,4 @@ Rooms.init({
 	underscored: true,
 })
 
-export default Rooms
+export default Room

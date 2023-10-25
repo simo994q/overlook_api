@@ -2,9 +2,9 @@ import sequelize from '../Config/sequelize.config.js'
 import { DataTypes, Model } from 'sequelize'
 import RoomFacilityCategory from './room-facility-category.model.js'
 
-class RoomFacilities extends Model{}
+class RoomFacility extends Model{}
 
-RoomFacilities.init({
+RoomFacility.init({
 	id: {
 		type: DataTypes.INTEGER,
 		autoIncrement: true,
@@ -29,4 +29,4 @@ RoomFacilities.init({
 	underscored: true,
 })
 
-export default RoomFacilities
+export default RoomFacility

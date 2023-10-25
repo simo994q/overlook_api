@@ -1,19 +1,19 @@
 import dotenv from "dotenv" // Credentials
-import Hotels from '../Models/hotel.model.js'
-import UserReviews from '../Models/review.model.js'
-import Users from '../Models/user.model.js'
+import Hotel from '../Models/hotel.model.js'
+import UserReview from '../Models/review.model.js'
+import User from '../Models/System/user.model.js'
 import jwt from "jsonwebtoken"
 import sequelize from "../Config/sequelize.config.js"
 
 dotenv.config()
 
 // Definerer relation mellem reservation og bruger
-Users.hasMany(UserReviews)
-UserReviews.belongsTo(Users)
+User.hasMany(UserReview)
+UserReview.belongsTo(User)
 
 // Definerer relation mellem reservation og hotel
-Hotels.hasMany(UserReviews)
-UserReviews.belongsTo(Hotels)
+Hotel.hasMany(UserReview)
+UserReview.belongsTo(Hotel)
 
 /**
  * Controller for Org Actions
@@ -37,12 +37,12 @@ class ReviewController {
 		const attr = attributes ? attributes.split(',') : new Array('id', 'title', 'created_at')
 
 		// Eksekverer sequelize metode med management values
-		const result = await UserReviews.findAll({
+		const result = await UserReview.findAll({
 			attributes: attr,
 			order: [order],
 			limit: limit,
 			include: {
-				model: Users,
+				model: User,
 				attributes: ['firstname', 'lastname', 'email']
 			}
 		})
@@ -69,12 +69,12 @@ class ReviewController {
 		const attr = attributes ? attributes.split(',') : new Array('id', 'title', 'created_at')
 
 		// Eksekverer sequelize metode med management values
-		const result = await UserReviews.findAll({
+		const result = await UserReview.findAll({
 			attributes: attr,
 			order: [order],
 			limit: limit,
 			include: {
-				model: Users,
+				model: User,
 				attributes: ['firstname', 'lastname', 'email']
 			},
 			where: { hotel_id: hotel_id }
@@ -94,7 +94,7 @@ class ReviewController {
 		const { hotel_id } = req.params
 		// Eksekverer sequelize metode med attributter og where clause
 
-		const result = await UserReviews.findOne({
+		const result = await UserReview.findOne({
 			attributes: [
 				[sequelize.fn('SUM', sequelize.col('num_stars')), 'stars'],
 				[sequelize.fn('COUNT', sequelize.col('user_id')), 'users'],
@@ -138,7 +138,7 @@ class ReviewController {
 			}
 	
 			// Opretter record
-			const model = await UserReviews.create(formdata)
+			const model = await UserReview.create(formdata)
 			// Sender nyt id som json object
 			res.json({ newId: model.id })
 		} else {
@@ -181,7 +181,7 @@ class ReviewController {
 		const { id } = req.body
 
 		try {
-			await UserReviews.destroy({ 
+			await UserReview.destroy({ 
 				where: { id: id }
 			})
 			res.sendStatus(200)

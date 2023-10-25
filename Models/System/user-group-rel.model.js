@@ -1,7 +1,7 @@
-import sequelize from "../Config/sequelize.config.js";
+import sequelize from "../../Config/sequelize.config.js";
 import { DataTypes, Model } from "sequelize";
-import Users from "./user.model.js";
-import Groups from "./group.model.js";
+import User from "./user.model.js";
+import Group from "./group.model.js";
 
 class UserGroupRel extends Model{}
 
@@ -16,7 +16,7 @@ UserGroupRel.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Groups,
+			model: Group,
 			key: 'id'
 		}	
 	},
@@ -24,7 +24,7 @@ UserGroupRel.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Users,
+			model: User,
 			key: 'id'
 		}	
 

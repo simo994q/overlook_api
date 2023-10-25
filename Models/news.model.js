@@ -1,6 +1,6 @@
 import sequelize from '../Config/sequelize.config.js'
 import { DataTypes, Model } from 'sequelize'
-import { Images } from './image.model.js'
+import { Image } from './image.model.js'
 
 class News extends Model{}
 
@@ -15,7 +15,7 @@ News.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Images,
+			model: Image,
 			key: 'id'
 		}
 	},

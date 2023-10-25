@@ -1,0 +1,2 @@
+"id","user_id","hotel_id","room_id","is_flex","num_persons","checkin","checkout","firstname","lastname","email","phone","comment"
+1,1,1,1,1,1,"2023-11-01 10:00:00","2023-11-03 12:00:00","Klaus","Bundgaard","klaus@r8dio.dk","99112233","I er dygtige!"

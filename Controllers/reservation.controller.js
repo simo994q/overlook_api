@@ -1,19 +1,19 @@
-import Hotels from '../Models/hotel.model.js'
+import Hotel from '../Models/hotel.model.js'
 import Reservations from '../Models/reservation.model.js'
-import Rooms from '../Models/room.model.js'
-import Users from '../Models/user.model.js'
+import Room from '../Models/room.model.js'
+import User from '../Models/System/user.model.js'
 
 // Definerer relation mellem reservation og bruger
-Users.hasMany(Reservations)
-Reservations.belongsTo(Users)
+User.hasMany(Reservations)
+Reservations.belongsTo(User)
 
 // Definerer relation mellem reservation og hotel
-Hotels.hasMany(Reservations)
-Reservations.belongsTo(Hotels)
+Hotel.hasMany(Reservations)
+Reservations.belongsTo(Hotel)
 
 // Definerer relation mellem reservation og værelse
-Rooms.hasMany(Reservations)
-Reservations.belongsTo(Rooms)
+Room.hasMany(Reservations)
+Reservations.belongsTo(Room)
 
 /**
  * Controller for Org Actions
@@ -70,11 +70,11 @@ class ReservationController {
 			],
 			include: [
 				{
-					model: Hotels,
+					model: Hotel,
 					attributes: ['id','title']
 				},
 				{
-					model: Rooms,
+					model: Room,
 					attributes: ['id','title']
 				}
 			],

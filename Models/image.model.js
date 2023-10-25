@@ -1,9 +1,9 @@
 import sequelize from '../Config/sequelize.config.js'
 import { DataTypes, Model } from 'sequelize'
 
-class Images extends Model{}
+class Image extends Model{}
 
-Images.init({
+Image.init({
 	id: {
 		type: DataTypes.INTEGER,
 		autoIncrement: true,
@@ -24,4 +24,4 @@ Images.init({
 	underscored: true,
 })
 
-export { Images }
+export { Image }

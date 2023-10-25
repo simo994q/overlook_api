@@ -1,10 +1,11 @@
-import sequelize from "../Config/sequelize.config.js"
+import sequelize from "../../Config/sequelize.config.js"
 import { DataTypes, Model } from "sequelize"
 import bcrypt from "bcrypt"
+import Org from "./org.model.js"
 
-class Users extends Model {}
+class User extends Model {}
 
-Users.init(
+User.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -31,6 +32,10 @@ Users.init(
     org_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: Org,
+        key: 'id'
+      }  
     },
     refresh_token: {
       type: DataTypes.STRING,
@@ -57,10 +62,17 @@ Users.init(
   }
 )
 
+User.addHook('beforeBulkCreate', async (users) => {
+  // Krypter hver adgangskode før bulkCreate-operationen
+  for (const user of users) {
+    user.password = await bcrypt.hash(user.password, 10);
+  }
+});
+
 const createHash = async (string) => {
   const salt = await bcrypt.genSalt(10)
   const hashed_string = await bcrypt.hash(string, salt)
   return hashed_string
 }
 
-export default Users
+export default User

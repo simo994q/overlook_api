@@ -1,5 +1,5 @@
 import sequelize from "../Config/sequelize.config.js"
-import { Images } from "../Models/image.model.js"
+import { Image } from "../Models/image.model.js"
 
 /**
  * Controller foc City Actions

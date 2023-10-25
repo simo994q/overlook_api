@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv" // Credentials
 import bcrypt from "bcrypt"
-import UserModel from "../Models/user.model.js"
+import User from "../Models/System/user.model.js"
 
 dotenv.config()
 
@@ -12,7 +12,7 @@ const Authenticate = async (req, res) => {
   // Hvis brugernavn og password findes...
   if (username && password) {
     // Henter db user ud fra username
-    const user_result = await UserModel.findOne({
+    const user_result = await Users.findOne({
       attributes: ["id", "firstname", "lastname", "password"],
       where: { email: username, is_active: 1 },
     })
@@ -50,7 +50,7 @@ const Authenticate = async (req, res) => {
           )
 
           // Updater refresh token i bruger database
-          UserModel.update(
+          Users.update(
             { refresh_token, refresh_token },
             {
               where: { id: data.id },
@@ -85,6 +85,11 @@ const Authenticate = async (req, res) => {
           // Returnerer access_token til requester
           return res.json({
             access_token: access_token,
+            user: {
+              id: `${data.id}`,
+              firstname: `${data.firstname}`,
+              lastname: `${data.lastname}`
+            },
             created: Date(),
           })
         } else {
@@ -108,16 +113,27 @@ const Authenticate = async (req, res) => {
  */
 const Authorize = async (req, res, next) => {
   // Henter access token fra auth header
-  const bearerHeader = req.headers["authorization"]
-  const access_token = bearerHeader.substr(7) // Remove "Bearer "
+  const bearerHeader = req.headers["authorization"]  
+  let access_token;  
+
+  if(bearerHeader && bearerHeader.includes('Bearer')) {
+    access_token = bearerHeader.substr(7) // Remove "Bearer "  
+  } else {
+    res.status(401).send({ message: 'Token not accepted' })
+  }
 
   // Bekræfter access_token med access_key
   jwt.verify(access_token, process.env.TOKEN_ACCESS_KEY, (err, data) => {
     if (err) {
+      console.log(err.message);
       switch (err.message) {
+        case "jwt malformed":
+        case "invalid algorithm":
         case "invalid signature":
           // Returnerer statuskode (403: Forbidden)
-          res.sendStatus(403)
+          res.status(403).send({
+            message: err.message
+          })
           break
         case "jwt expired":
           // Refresh token
@@ -129,7 +145,7 @@ const Authorize = async (req, res, next) => {
             process.env.TOKEN_ACCESS_KEY
           ).data
           // Henter db bruger ud fra id
-          UserModel.findOne({
+          Users.findOne({
             where: { id: id, is_active: 1 },
           }).then(record => {
             if (!record?.refresh_token) {
@@ -144,9 +160,12 @@ const Authorize = async (req, res, next) => {
                   if (err) {
                     switch (err.message) {
                       case "jwt expired":
+                      case "jwt malformed":
                         // Returerner besked om at refresh_token er udløbet
                         // Betyder at bruger skal logge ind igen
-                        res.json({ message: "Refresh token expired. Please login again." })
+                        res.status(400).send({ 
+                          message: "Refresh token malformed or expired. Please login again." 
+                        })
                         break
                       case "invalide token":
                         // Returnerer statuskode (400: Bad Request)
@@ -199,6 +218,33 @@ const Authorize = async (req, res, next) => {
   })
 }
 
+/**
+ * Metode til at hente bruger id ud fra en token
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
+const getUserFromToken = async (req, res) => {
+  const bearerHeader = req.headers["authorization"];
+
+  if(bearerHeader && bearerHeader.includes('Bearer ')) {
+    const token = bearerHeader.split(' ')[1]
+    try {
+      const decodeToken = jwt.verify(token, process.env.TOKEN_ACCESS_KEY)
+      const user_id = await decodeToken.data.id
+      console.log(user_id);
+      return user_id
+    } catch(err) {
+      console.error(err)
+    }
+  }
+}
+
+
+/**
+ * Decode token - NOT IN USE
+ * @param {*} token 
+ */
 const decodeToken = async (token) => {
   jwt.verify(token, process.env.TOKEN_REFRESH_KEY, (err, decoded) => {
     if (err) {
@@ -211,4 +257,4 @@ const decodeToken = async (token) => {
   });  
 }
 
-export { Authenticate, Authorize }
+export { Authenticate, Authorize, getUserFromToken }

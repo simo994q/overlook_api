@@ -1,12 +1,10 @@
 import sequelize from '../Config/sequelize.config.js'
 import { DataTypes, Model } from 'sequelize'
-import { Images } from './image.model.js'
+import { Image } from './image.model.js'
 
-class Cities extends Model {
+class City extends Model {}
 
-}
-
-Cities.init({
+export default City.init({
 	id: {
 		type: DataTypes.INTEGER,
 		autoIncrement: true,
@@ -33,7 +31,7 @@ Cities.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Images,
+			model: Image,
 			key: 'id'
 		}
 	}
@@ -42,5 +40,3 @@ Cities.init({
 	modelName: 'city',
 	underscored: true,
 })
-
-export default Cities

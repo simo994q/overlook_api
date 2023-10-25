@@ -1,11 +1,11 @@
 import sequelize from '../Config/sequelize.config.js'
 import { DataTypes, Model } from 'sequelize'
-import Cities from './city.model.js'
-import { Images } from './image.model.js'
+import City from './city.model.js'
+import { Image } from './image.model.js'
 
-class Hotels extends Model {}
+class Hotel extends Model {}
 
-Hotels.init({
+Hotel.init({
 	id: {
 		type: DataTypes.INTEGER,
 		autoIncrement: true,
@@ -36,7 +36,7 @@ Hotels.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Cities,
+			model: City,
 			key: 'id'
 		}
 	},
@@ -52,7 +52,7 @@ Hotels.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Images,
+			model: Image,
 			key: 'id'
 		}
 	}
@@ -62,4 +62,4 @@ Hotels.init({
 	underscored: true,
 })
 
-export default Hotels
+export default Hotel

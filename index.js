@@ -5,10 +5,8 @@ import path from 'path';
 import cors from "cors"
 
 import InstallRouter from "./Routes/install.router.js"
-import CoreRouter from "./Routes/core.router.js"
-import AppRouter from "./Routes/app.router.js"
-
-dotenv.config()
+import SystemRouter from "./Routes/system.router.js"
+import MainRouter from "./Routes/main.router.js"
 
 const port = process.env.PORT || 3000
 
@@ -34,11 +32,11 @@ const currentPath = fileURLToPath(currentUrl);
 const currentDir = path.dirname(currentPath);
 
 // Define a route to serve static images
-app.use('/images', express.static(path.join(currentDir, 'images')));
+app.use('/Assets', express.static(path.join(currentDir, 'Assets')));
 
 app.use(InstallRouter)
-app.use(CoreRouter)
-app.use(AppRouter)
+app.use(SystemRouter)
+app.use(MainRouter)
 
 app.listen(port, () => {
 	console.log(`Server kører på http://localhost:${port}`);

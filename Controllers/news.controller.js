@@ -1,10 +1,10 @@
 import sequelize from "../Config/sequelize.config.js"
 import News from "../Models/news.model.js"
-import { Images } from "../Models/image.model.js"
+import { Image } from "../Models/image.model.js"
 
 // Definerer relation mellem by og hotel - one to many
-Images.hasMany(News)
-News.belongsTo(Images)
+Image.hasMany(News)
+News.belongsTo(Image)
 
 /**
  * Controller foc City Actions
@@ -35,7 +35,7 @@ class NewsController {
       limit: limit,
       include: [
         {
-          model: Images,
+          model: Image,
           attributes: ["filename"],
         },
       ],
@@ -58,7 +58,7 @@ class NewsController {
       where: { id: id },
       include: [
         {
-          model: Images,
+          model: Image,
           attributes: ["filename"]
         }
       ]

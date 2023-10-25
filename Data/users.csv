@@ -1,0 +1,2 @@
+"id","firstname","lastname","email","password","org_id","refresh_token","is_active","created_at","updated_at"
+1,"John","Doe","info@overlook.dk","$2b$10$c44g5I3gwMCDNbEWRF839uNZO5qBl0Py2ARqkYGKHsA0Dcy8LC1.C",1,"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTI2MDg2NTAsImRhdGEiOnsiaWQiOjF9LCJpYXQiOjE2OTI2MDUwNTB9.TIuHlBfnN45IxiXPyeruKf9pebkoT83JeRQRdZPp8YE",1,"2023-08-20 19:20:57","2023-08-21 10:39:27"

@@ -1,7 +1,7 @@
 import sequelize from '../Config/sequelize.config.js'
 import { DataTypes, Model } from 'sequelize'
-import { Images } from './image.model.js'
-import Rooms from './room.model.js'
+import { Image } from './image.model.js'
+import Room from './room.model.js'
 
 class RoomImageRel extends Model {}
 
@@ -16,7 +16,7 @@ RoomImageRel.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Rooms,
+			model: Room,
 			key: 'id'
 		}
 	},
@@ -24,7 +24,7 @@ RoomImageRel.init({
 		type: DataTypes.INTEGER,
 		allowNull: false,
 		references: {
-			model: Images,
+			model: Image,
 			key: 'id'
 		}
 	},
