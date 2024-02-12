@@ -12,7 +12,7 @@ const Authenticate = async (req, res) => {
   // Hvis brugernavn og password findes...
   if (username && password) {
     // Henter db user ud fra username
-    const user_result = await Users.findOne({
+    const user_result = await User.findOne({
       attributes: ["id", "firstname", "lastname", "password"],
       where: { email: username, is_active: 1 },
     })
@@ -50,7 +50,7 @@ const Authenticate = async (req, res) => {
           )
 
           // Updater refresh token i bruger database
-          Users.update(
+          User.update(
             { refresh_token, refresh_token },
             {
               where: { id: data.id },
@@ -145,7 +145,7 @@ const Authorize = async (req, res, next) => {
             process.env.TOKEN_ACCESS_KEY
           ).data
           // Henter db bruger ud fra id
-          Users.findOne({
+          User.findOne({
             where: { id: id, is_active: 1 },
           }).then(record => {
             if (!record?.refresh_token) {
